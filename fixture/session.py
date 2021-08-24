@@ -24,7 +24,7 @@ class SessionHelper:
 
     def get_logged_user(self):
         wd = self.app.wd
-        return wd.find_elements_by_css_selector("login-info-left span").text
+        return wd.find_elements_by_css_selector("td.login-info-left span").text
 
     def ensure_logout(self):
         if self.is_logged_in():
