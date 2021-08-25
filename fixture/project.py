@@ -20,8 +20,8 @@ class ProjectHelper:
         wd = self.app.wd
         self.app.menu.open_manage_projects()
         all_row_count = len(wd.find_elements_by_css_selector(row_selector))
-        projects_count = all_row_count - caption_offset
-        for i in range(projects_count):
+        projects_row_count = all_row_count - caption_offset
+        for i in range(projects_row_count):
             project_properties = wd.find_elements_by_css_selector(f'.row-{i + 1} td')
             project_list.append(Project(name=project_properties[0].text,
                                         status=project_properties[1].text,
