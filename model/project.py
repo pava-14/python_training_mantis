@@ -34,6 +34,8 @@ class Project:
     def get_random_project_data():
         return Project(name=Project.get_random_project_name(),
                        status=random.choice(Project.get_available_project_status()),
+                       igc=Project.get_random_flag(),
+                       enabled=Project.get_random_flag(),
                        view_status=random.choice(Project.get_available_project_view_status()),
                        description=Project.get_random_project_description())
 
@@ -54,3 +56,7 @@ class Project:
     @staticmethod
     def get_available_project_view_status():
         return ['public', 'private']
+
+    @staticmethod
+    def get_random_flag():
+        return str(random.randint(0, 1))

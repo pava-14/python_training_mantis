@@ -38,11 +38,27 @@ class ProjectHelper:
         wd = self.app.wd
         button_project_create_css = '.button-small[value="Create New Project"]'
         button_project_add_css = '.button[value="Add Project"]'
-        #
         self.app.menu.open_manage_projects()
         wd.find_element_by_css_selector(button_project_create_css).click()
         self.fill_project_properties(new_project_data)
         wd.find_element_by_css_selector(button_project_add_css).click()
+
+    def edit_project(self, project_for_edit, new_project_data):
+        wd = self.app.wd
+        button_project_update_css = '.button[value="Update Project"]'
+        new_project_data.description += '(Updated)'
+        self.app.menu.open_manage_projects()
+        wd.find_element_by_link_text(project_for_edit.name).click()
+        self.fill_project_properties(new_project_data)
+        wd.find_element_by_css_selector(button_project_update_css).click()
+
+    def delete_project(self, project_for_delete):
+        wd = self.app.wd
+        button_project_delete_css = '.button[value="Delete Project"]'
+        self.app.menu.open_manage_projects()
+        wd.find_element_by_link_text(project_for_delete.name).click()
+        wd.find_element_by_css_selector(button_project_delete_css).click()
+        wd.find_element_by_css_selector(button_project_delete_css).click()
 
     def get_project_data_from_rows(self, rows):
         project_id_selector = 'td a'
@@ -75,9 +91,7 @@ class ProjectHelper:
 
     def fill_project_properties(self, new_project_data):
         wd = self.app.wd
-        # dropdown_project_status_css = 'select[name="status"]'
         dropdown_project_status_name = 'status'
-        # dropdown_project_view_status_css = 'select[name="view_state"]'
         dropdown_project_view_status_name = 'view_state'
         project_description_css = 'textarea[name="description"]'
         input_project_name_css = 'input[name="name"]'
@@ -95,9 +109,17 @@ class ProjectHelper:
         wd = self.app.wd
         checkbox_project_igc_css = 'input[name="inherit_global"]'
         checkbox_igc = wd.find_element_by_css_selector(checkbox_project_igc_css)
-        if (new_project_data.igc and not checkbox_igc.is_selected()
-                or (not new_project_data.igc and checkbox_igc.is_selected())):
+        if (new_project_data.igc == "1" and not checkbox_igc.is_selected()
+                or (new_project_data.igc == "0" and checkbox_igc.is_selected())):
             checkbox_igc.click()
+
+    def set_checkbox_enabled(self, new_project_data):
+        wd = self.app.wd
+        checkbox_project_igc_css = 'input[name="enabled"]'
+        checkbox_enabled = wd.find_element_by_css_selector(checkbox_project_igc_css)
+        if (new_project_data.enabled == "1" and not checkbox_enabled.is_selected()
+                or (new_project_data.enabled == "0" and checkbox_enabled.is_selected())):
+            checkbox_enabled.click()
 
     def select_dropdown(self, dropdown_name, dropdown_visible_text):
         wd = self.app.wd

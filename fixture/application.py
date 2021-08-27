@@ -21,7 +21,6 @@ class Application:
         self.menu = MenuHelper(self)
         self.projects = ProjectHelper(self)
 
-
     def is_valid(self):
         try:
             self.wd.current_url()
