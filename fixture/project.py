@@ -2,6 +2,7 @@ __author__ = 'apavlenko'
 
 import re
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 
 from model.project import Project
@@ -25,13 +26,13 @@ class ProjectHelper:
         try:
             list_table_rows_1_syle = wd.find_elements_by_css_selector('.width100 .row-1 td')
             project_list.extend(self.get_project_data_from_rows(list_table_rows_1_syle))
-        except:
-            pass
+        except NoSuchElementException:
+            print("Element with row-1 style does not exist")
         try:
             list_table_rows_2_syle = wd.find_elements_by_css_selector('.width100 .row-2 td')
             project_list.extend(self.get_project_data_from_rows(list_table_rows_2_syle))
-        except:
-            pass
+        except NoSuchElementException:
+            print("Element with row-2 style does not exist")
         return project_list
 
     def add_new_project(self, new_project_data):
@@ -57,8 +58,9 @@ class ProjectHelper:
         button_project_delete_css = '.button[value="Delete Project"]'
         self.app.menu.open_manage_projects()
         wd.find_element_by_link_text(project_for_delete.name).click()
-        wd.find_element_by_css_selector(button_project_delete_css).click()
-        wd.find_element_by_css_selector(button_project_delete_css).click()
+        button_delete = wd.find_element_by_css_selector(button_project_delete_css)
+        button_delete.click()
+        button_delete.click()
 
     def get_project_data_from_rows(self, rows):
         project_id_selector = 'td a'
