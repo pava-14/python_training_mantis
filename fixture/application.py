@@ -7,7 +7,7 @@ from fixture.session import SessionHelper
 
 
 class Application:
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "firefox":
@@ -18,7 +18,8 @@ class Application:
             raise ValueError(f"Unrecognized browser {browser}")
         # self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
-        self.base_url = base_url
+        self.config = config
+        self.base_url = config['web']['baseUrl']
         self.menu = MenuHelper(self)
         self.projects = ProjectHelper(self)
         self.james = JamesHelper(self)
