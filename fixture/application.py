@@ -1,5 +1,6 @@
 from selenium import webdriver
 
+from fixture.james import JamesHelper
 from fixture.menu import MenuHelper
 from fixture.project import ProjectHelper
 from fixture.session import SessionHelper
@@ -20,6 +21,7 @@ class Application:
         self.base_url = base_url
         self.menu = MenuHelper(self)
         self.projects = ProjectHelper(self)
+        self.james = JamesHelper(self)
 
     def is_valid(self):
         try:
