@@ -19,7 +19,7 @@ class MailHelper:
             if num > 0:
                 for n in range(num):
                     msglines = pop.retr(n + 1)[1]
-                    msgtext = "/n".join(map(lambda x: x.decode('utf-8'), msglines))
+                    msgtext = "\n".join(map(lambda x: x.decode('utf-8'), msglines))
                     msg = email.message_from_string(msgtext)
                     subj = msg.get('Subject')
                     if msg.get('Subject') == subject:

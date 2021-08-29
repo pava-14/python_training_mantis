@@ -37,6 +37,7 @@ def restore_server_configuration(host, username, password):
                 remote.remove('config_inc.php')
             remote.rename('config_inc.php.bak', 'config_inc.php')
 
+
 @pytest.fixture(scope="session")
 def config(request):
     return load_config(request.config.getoption("--target"))
@@ -67,7 +68,8 @@ def stop(request):
 
     def fin():
         if not fixture is None:
-            fixture.session.logout()
+            if fixture.session.is_logged_in():
+                fixture.session.logout()
             fixture.destroy()
 
     request.addfinalizer(fin)
