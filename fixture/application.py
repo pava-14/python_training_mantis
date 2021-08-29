@@ -1,9 +1,11 @@
 from selenium import webdriver
 
 from fixture.james import JamesHelper
+from fixture.mail import MailHelper
 from fixture.menu import MenuHelper
 from fixture.project import ProjectHelper
 from fixture.session import SessionHelper
+from fixture.signup import SignupHelper
 
 
 class Application:
@@ -23,6 +25,8 @@ class Application:
         self.menu = MenuHelper(self)
         self.projects = ProjectHelper(self)
         self.james = JamesHelper(self)
+        self.signup = SignupHelper(self)
+        self.mail = MailHelper(self)
 
     def is_valid(self):
         try:
